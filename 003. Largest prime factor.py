@@ -2,16 +2,16 @@
 What is the largest prime factor of the number 600851475143'''
 
 
-def primfacs(n):
-   i = 2
-   primfac = []
-   while i * i <= n:
-       while n % i == 0:
-           primfac.append(i)
-           n = n // i
-       i = i + 1
-   if n > 1:
-       primfac.append(n)
-   return primfac
+def largest_prime_factor(num):
+    curr = 3
+    answer = []
+    if num == 2:
+        return 2
+    while curr <= num:
+        if num % curr == 0:
+            answer.append(curr)
+            num //= curr
+        curr += 2
+    return answer[-1]
 
-print(primfacs(600851475143))
+print(largest_prime_factor(600851475143))
