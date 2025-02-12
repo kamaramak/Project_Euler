@@ -2,20 +2,35 @@
 What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?'''
 
 
-def gcd(a, b):
-    while a != b:
-        if a > b:
-            a -= b
-        else:
-            b -= a
-    return a
+def prime_factors(num):
+    curr = 2
+    answer = []
+    if num == 2:
+        return [2]
+    while curr <= num:
+        if num % curr == 0:
+            answer.append(curr)
+            num //= curr
+            while num % curr == 0:
+                answer.append(curr)
+                num //= curr
+        curr += 1
+    return answer
 
-def lcm(a, b):
-    return a * b // gcd(a, b)
+def smallest_multiple(a, b):
+    ans = 1
+    data = {}
+    for i in range(a, b + 1):
+        factors = prime_factors(i)
+        for factor in factors:
+            tmp = data.setdefault(factor, 0)
+            count_factor = factors.count(factor)
+            if count_factor > tmp:
+                data[factor] = count_factor
+    for key, value in data.items():
+        ans *= key ** value
+    return ans
 
-def lcm_large(nums):
-    a = nums[0]
-    for i in range(len(nums) - 1):
-        a = lcm(a, nums[i + 1])
-    return a
-print(lcm_large(list(range(1, 21))))
+minimum = 1
+maximum = 20
+print(smallest_multiple(minimum, maximum))
