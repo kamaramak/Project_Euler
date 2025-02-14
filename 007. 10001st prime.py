@@ -4,43 +4,28 @@ What is the 10_001st prime number?'''
 
 import time
 
-import numpy as np
 
-"""Алгоритм 'Решето Эратосфена' улучшенное использованием numpy вектора"""
 start = time.time()
-n = 2 ** 30
-a = np.array(list(range(n + 1)))
-a[1] = 0
-data = []
-i = 2
-while i <= n:
-    if a[i] != 0:
-        data.append(a[i])
-        a[i::i] = 0
-    i += 1
-print(*data, sep='\n')
-print(len(data))
-finish = time.time()
-print('С векторами нумпай', finish - start)
+def prime_factors(num):
+    curr = 3
+    answer = []
+    while curr <= num:
+        if num % curr == 0:
+            answer.append(curr)
+            num //= curr
+            while num % curr == 0:
+                answer.append(curr)
+                num //= curr
+        curr += 2
+    return answer
 
-"""14.5799081325531 секунд при n = 10 ** 7"""
-
-"""---------------------------------"""
-
-# start = time.time()
-# n = 10 ** 7
-# a = list(range(n + 1))
-# a[1] = 0
-# data = []
-# i = 2
-# while i <= n:
-#     if a[i] != 0:
-#         data.append(a[i])
-#         for j in range(i, n + 1, i):
-#             a[j] = 0
-#     i += 1
-# print(*data, sep='\n')
-# print(len(data))
-# finish = time.time()
-# print('Со списком обычным', finish - start)
-# """30.91767454147339 секунд при n = 10 ** 7"""
+ans = 2
+n = 3
+count = 0
+while count != 10000:
+    if len(prime_factors(n)) == 1:
+        ans = n
+        count += 1
+    n += 2
+print(ans)
+print(time.time() - start)
