@@ -6,6 +6,8 @@ Hence the difference between the sum of the squares of the first ten natural num
 Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.'''
 
 
-data = list(range(1, 101))
-data_first = list(map(lambda x: x * x, data))
-print(sum(data) ** 2 - sum(data_first))
+def sum_square_diff(num):
+    data = range(num + 1)
+    return sum(data) ** 2 - sum(map(lambda x: x ** 2, data))
+
+print(sum_square_diff(100))
